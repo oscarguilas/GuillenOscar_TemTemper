@@ -14,15 +14,39 @@ import com.example.test1.databinding.ActivityLandingBinding;
 
 public class LandingActivity extends AppCompatActivity {
 
-private ActivityLandingBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_landing);
 
+
+        BottomNavigationView bottomNav = findViewById(R.id.main_menu);
+
+        bottomNav.setOnNavigationItemSelectedListener(item -> {
+            Fragment selectedFragment = null;
+            switch (item.getItemId()){
+                case R.id.nav_home:
+                    selectedFragment = new HomeFragment();
+                    break;
+                case R.id.nav_list:
+                    selectedFragment = new ListFragment();
+                    break;
+
+                case R.id.nav_form:
+                    selectedFragment = new FormFragment();
+                    break;
+            }
+
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
+
+            return true;
+        });
+
+/*
      binding = ActivityLandingBinding.inflate(getLayoutInflater());
      setContentView(binding.getRoot());
-
+*/
 
     }
 
