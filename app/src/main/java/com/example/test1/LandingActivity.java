@@ -12,7 +12,19 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import com.example.test1.databinding.ActivityLandingBinding;
 
+import android.database.sqlite.SQLiteDatabase;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.test1.DB.MatchDBHelper;
+import com.example.test1.Model.Match;
+
 public class LandingActivity extends AppCompatActivity {
+
+    private MatchDBHelper dbHelper;
+    private SQLiteDatabase db;
 
 
     @Override
@@ -47,6 +59,10 @@ public class LandingActivity extends AppCompatActivity {
      binding = ActivityLandingBinding.inflate(getLayoutInflater());
      setContentView(binding.getRoot());
 */
+        //dbHelper initialization to be later used in recordMatch()
+        dbHelper = new MatchDBHelper(getApplicationContext());
+        db = dbHelper.getWritableDatabase();
+
 
     }
 
@@ -63,6 +79,30 @@ public class LandingActivity extends AppCompatActivity {
     public void goForm(View v){
         Fragment form = new FormFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,form).commit();
+    }
+
+    //recordMatch is called from the button in the form id=insert_button
+    //It creates an entry for a match in the SQLite db
+    public void recordMatch(View v){
+        EditText opp_name = findViewById(R.id.opp_name_text);
+        Spinner draftside = findViewById(R.id.draftside_spinner);
+        EditText rating = findViewById(R.id.rating_text);
+        Spinner result = findViewById(R.id.result_spinner);
+
+        //TextView debug = findViewById(R.id.debug_text);
+        //debug.setText("" + opp_name.getText().toString() + "\n" + rating.getText().toString());
+
+        if(opp_name.getText().toString() == null || rating.getText().toString() == null
+                || opp_name.getText().toString().equals("") || rating.getText().toString().equals("")){
+            Toast toast = Toast.makeText(getApplicationContext(), "Please fill the text fields.", Toast.LENGTH_LONG);
+            toast.show();
+        } else {
+            Match input = new Match(opp_name.getText().toString(), draftside.getSelectedItem().toString(), rating.getText().toString(), result.getSelectedItem().toString());
+            dbHelper.insertMatch(db,input);
+            Toast toast = Toast.makeText(getApplicationContext(), "Successfully added new match", Toast.LENGTH_SHORT);
+            toast.show();
+        }
+
     }
 
 }

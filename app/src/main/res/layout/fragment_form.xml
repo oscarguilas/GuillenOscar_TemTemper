@@ -6,9 +6,110 @@
     tools:context=".FormFragment">
 
     <!-- TODO: Update blank fragment layout -->
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="form" />
+
+        android:text="Record match panel"
+        android:textAlignment="center"
+        android:textSize="25dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:layout_marginStart="20dp"
+        android:text="Opponent's name"
+        android:textSize="20dp"
+        android:textAlignment="gravity" />
+    
+    <EditText
+        android:id="@+id/opp_name_text"
+        android:layout_marginTop="100dp"
+        android:layout_marginStart="30dp"
+
+        android:layout_width="300dp"
+        android:layout_height="35dp"
+        android:hint="Name Here..."
+        android:textSize="20dp"
+        android:paddingTop="0dp"
+        android:paddingBottom="0dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="150dp"
+        android:layout_marginStart="20dp"
+        android:text="Your draft order"
+        android:textSize="20dp"
+        android:textAlignment="gravity" />
+
+    <Spinner
+        android:id="@+id/draftside_spinner"
+        android:layout_marginTop="180dp"
+        android:layout_marginStart="30dp"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:paddingTop="0dp"
+        android:paddingBottom="0dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="230dp"
+        android:layout_marginStart="20dp"
+        android:text="Match's rating"
+        android:textSize="20dp"
+        android:textAlignment="gravity" />
+
+    <EditText
+        android:id="@+id/rating_text"
+        android:layout_marginTop="260dp"
+        android:layout_marginStart="30dp"
+
+        android:layout_width="300dp"
+        android:layout_height="35dp"
+        android:hint="Rating here..."
+        android:textSize="20dp"
+        android:paddingTop="0dp"
+        android:paddingBottom="0dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="310dp"
+        android:layout_marginStart="20dp"
+        android:text="Your draft order"
+        android:textSize="20dp"
+        android:textAlignment="gravity" />
+
+    <Spinner
+        android:id="@+id/result_spinner"
+        android:layout_marginTop="340dp"
+        android:layout_marginStart="30dp"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:paddingTop="0dp"
+        android:paddingBottom="0dp"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:id="@+id/insert_button"
+        android:layout_marginTop="450dp"
+        android:layout_marginStart="200dp"
+        android:text="record match"
+        android:onClick="recordMatch"/>
+    <TextView
+        android:id="@+id/debug_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        />
 
 </FrameLayout>
