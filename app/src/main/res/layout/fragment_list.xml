@@ -3,17 +3,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ListFragment">
+    tools:context=".ListFragment"
+    android:id="@+id/list_fragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="list" />
+    <Button
+        android:id="@+id/wipe_matches_button"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginStart="50dp"
+        android:text="WIPE LIST"
+        android:onClick="wipeList"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/matches_recycler"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"/>
 
 </FrameLayout>

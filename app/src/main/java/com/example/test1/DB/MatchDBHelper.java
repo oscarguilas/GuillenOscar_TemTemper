@@ -51,8 +51,14 @@ public class MatchDBHelper extends SQLiteOpenHelper {
         }
     }
 
+    //Returns a Cursor with all the values in the table, therefore returning the data for all matches stored
     public Cursor returnAllMatches(SQLiteDatabase db){
         return db.rawQuery("SELECT * FROM MATCHES", null);
+    }
+
+    //Wipes the record of all matches in the db
+    public void wipeAllMatches(SQLiteDatabase db){
+        db.execSQL("DELETE FROM MATCHES");
     }
 
 

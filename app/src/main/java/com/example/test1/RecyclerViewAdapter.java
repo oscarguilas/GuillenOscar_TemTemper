@@ -12,7 +12,6 @@ import androidx.annotation.NonNull;
 import java.util.ArrayList;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
-    //private ArrayList<String> array;
     private Cursor input;
 
 
@@ -30,8 +29,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewAdapter.ViewHolder holder, int position) {
-        //holder.opp_name.setText(array.get(position));
-        //int i=0;
+        //The int position serves to get the row in which we want to take the information from
+        //And input.getInt/getString serve to get the information out from the columns, starting from 0 to 4 (5 columns total)
 
         input.moveToPosition(position);
         holder.itemView.setTag(input.getInt(0));
@@ -48,7 +47,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         TextView opp_name, draftside, rating, result;
-        int id;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -56,7 +54,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             draftside = itemView.findViewById(R.id.draftside_list_text);
             rating = itemView.findViewById(R.id.rating_list_text);
             result = itemView.findViewById(R.id.result_list_text);
-            //itemView.setTag(id);
         }
     }
 }

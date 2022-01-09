@@ -1,5 +1,7 @@
 package com.example.test1;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 
@@ -20,6 +22,7 @@ import android.widget.Toast;
 
 import com.example.test1.DB.MatchDBHelper;
 import com.example.test1.Model.Match;
+import com.example.test1.ListFragment;
 
 public class LandingActivity extends AppCompatActivity {
 
@@ -71,7 +74,7 @@ public class LandingActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,home).commit();
     }
 
-    public void goList(View v){
+    public void goList(){
         Fragment list = new ListFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,list).commit();
     }
@@ -94,7 +97,7 @@ public class LandingActivity extends AppCompatActivity {
 
         if(opp_name.getText().toString() == null || rating.getText().toString() == null
                 || opp_name.getText().toString().equals("") || rating.getText().toString().equals("")){
-            Toast toast = Toast.makeText(getApplicationContext(), "Please fill the text fields.", Toast.LENGTH_LONG);
+            Toast toast = Toast.makeText(getApplicationContext(), "Please fill the text fields", Toast.LENGTH_LONG);
             toast.show();
         } else {
             Match input = new Match(opp_name.getText().toString(), draftside.getSelectedItem().toString(), rating.getText().toString(), result.getSelectedItem().toString());
@@ -104,5 +107,38 @@ public class LandingActivity extends AppCompatActivity {
         }
 
     }
+    //This function is called by the "WIPE LIST" button in ListFragment()
+    public void wipeList(View view){
+        //First we create a confirmation window to make sure they didn't misclick the button.
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Confirmation prompt");
+        builder.setMessage("Are you sure you want to wipe the contents of the list?")
+                //Accept button
+                .setPositiveButton("Accept", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        //As the user has accepted, we commit to wiping the matches by calling dbHelper
+                        dbHelper.wipeAllMatches(db);
+                        //Reloads the ListFragment by calling a transaction to "go" to the ListFragment, reflecting the wipe to the user
+                        goList();
+                        //Confirms the transaction via Toast
+                        Toast toast = Toast.makeText(getApplicationContext(), "The wipe was successful", Toast.LENGTH_LONG);
+                        toast.show();
+                    }
+                })
+                //Decline button
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        //Nothing happens, returns to screen as it was
+                    }
+                });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
 
+    @Override
+    protected void onDestroy() {
+        dbHelper.close();
+        db.close();
+        super.onDestroy();
+    }
 }

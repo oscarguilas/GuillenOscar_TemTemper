@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -72,11 +73,19 @@ public class ListFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        //Here we create and fill the RecyclerView with the information from dbHelper
+        //Declaring the dbHelper
         MatchDBHelper dbHelper = new MatchDBHelper(getActivity().getApplicationContext());
 
+        //Declaring the RecyclerView as the element in the fragment
         RecyclerView recView = view.findViewById(R.id.matches_recycler);
+        //Calling the adapter, which needs the information from the query to the db
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(dbHelper.returnAllMatches(dbHelper.getWritableDatabase()));
-        recView.setAdapter(adapter);
+        //LayoutManager... is necessary i guess. idk but it's there
         recView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
+        recView.setAdapter(adapter);
+        //Adds the decoration to delineate the separation between different cards within the list
+        recView.addItemDecoration(new DividerItemDecoration(getActivity().getApplicationContext(), DividerItemDecoration.VERTICAL));
     }
+
 }
