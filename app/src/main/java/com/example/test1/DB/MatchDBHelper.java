@@ -2,6 +2,7 @@ package com.example.test1.DB;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -15,7 +16,7 @@ public class MatchDBHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "temtemper.db";
 
     private static final String SQL_CREATE_ENTRIES = "CREATE TABLE " + MatchEntry.TABLE_NAME + "(" + MatchEntry.ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            MatchEntry.TEXT_COL1 + " TEXT," + MatchEntry.TEXT_COL2 + " TEXT," + MatchEntry.TEXT_COL3 + " TEXT,"  + MatchEntry.TEXT_COL4 + " TEXT)";
+            MatchEntry.OPP_NAME + " TEXT," + MatchEntry.DRAFTSIDE + " TEXT," + MatchEntry.RATING + " TEXT,"  + MatchEntry.RESULT + " TEXT)";
 
 
     public MatchDBHelper(Context context) {
@@ -39,15 +40,19 @@ public class MatchDBHelper extends SQLiteOpenHelper {
             ContentValues values = new ContentValues();
 
             //Insert the incidence getting all values
-            values.put(MatchEntry.TEXT_COL1, c.getOpp_name());
-            values.put(MatchEntry.TEXT_COL2, c.getDraft_side());
-            values.put(MatchEntry.TEXT_COL3, c.getRating());
-            values.put(MatchEntry.TEXT_COL4, c.getResult());
+            values.put(MatchEntry.OPP_NAME, c.getOpp_name());
+            values.put(MatchEntry.DRAFTSIDE, c.getDraft_side());
+            values.put(MatchEntry.RATING, c.getRating());
+            values.put(MatchEntry.RESULT, c.getResult());
 
             db.insert(MatchEntry.TABLE_NAME, null, values);
         }else{
             Log.i("sql","Database is closed");
         }
+    }
+
+    public Cursor returnAllMatches(SQLiteDatabase db){
+        return db.rawQuery("SELECT * FROM MATCHES", null);
     }
 
 

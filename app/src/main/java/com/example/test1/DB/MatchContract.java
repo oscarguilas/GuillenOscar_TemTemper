@@ -7,10 +7,10 @@ public class MatchContract {
     public static class MatchEntry implements BaseColumns {
         public static final String TABLE_NAME ="MATCHES";
         public static final String ID = "ID";
-        public static final String TEXT_COL1 = "OPP_NAME";
-        public static final String TEXT_COL2 = "DRAFTSIDE";
-        public static final String TEXT_COL3 = "RATING";
-        public static final String TEXT_COL4 = "RESULT";
+        public static final String OPP_NAME = "OPP_NAME";
+        public static final String DRAFTSIDE = "DRAFTSIDE";
+        public static final String RATING = "RATING";
+        public static final String RESULT = "RESULT";
     }
 }
 
